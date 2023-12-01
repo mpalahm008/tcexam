@@ -1,221 +1,193 @@
-# TMF ( TCExam Mobile Friendly ) CBT For AKM
+System Requirements
+The installation instructions assumes that you have a fully functioning web server.
 
-Aplikasi Ujian (CBT) yang cepat, ringan dan gesit, cocok untuk berbagai mata pelajaran maupun segala jenjang pendidikan atau kebutuhan. Mampu menampung banyak peserta ujian dalam satu waktu bersamaan meskipun dijalankan pada shared hosting. 
-Tipe soal cukup beragam, bisa dikondisikan untuk melatih peserta didik mempersiapkan AKM atau untuk event lainnya.
-Projek ini merupakan Forking dari TMF (TCExam Mobile Friendly) dengan modifikasi pada loading soal dan kirim jawaban melalui AJAX dari sisi peserta ujian.
+These are the minimum requirements needed before installation of TCExam can be successful:
 
-Halaman Login
+A Web server: Apache 1.3+ (http://httpd.apache.org/) or IIS 6+ (http://www.microsoft.com).
+PHP 5.5+ (http://www.php.net)
+You must ensure that you have gd, imagick, curl, mysql, and pgsql libraries enabled within your PHP installation.
+A DMBS:MySQL 4.1+ (http://www.mysql.com) or PostgreSQL 8.2+ (http://www.postgresql.org)
+The LaTeX rendering requires the following additional software:
+LaTeX (http://www.latex-project.org/), for Windows I suggest to use MiKTeX (http://miktex.org/);
+ImageMagick (http://www.imagemagick.org/);
+Ghostscript (http://sourceforge.net/projects/ghostscript/).
+The Optical Mark Recognition (OMR) system requires zbarimg application (http://zbar.sourceforge.net)
+For help with the installation and configuration of the web server and the required libraries please refer to the specific manuals.
+If installing on your home or office computer (for local testing only) there are a number of packages for the various operating systems that will assist in establishing these requirements:
 
-Logo sekolah dan nama sekolah serta atribut lainnya dapat diubah sesuai selera.
+XAMPP - Multi-platform - Apache, MySQL, PHP, installation. http://www.apachefriends.org/en/xampp.html.
+WAMP - Windows platform - Apache, MySQL, PHP, installation. http://www.wampserver.com/en/
+MAMP - Macintosh platform - Apache MySQL, PHP, installation. http://www.mamp.info/en/index.php
+If you are using a Debian/Ubuntu OS, we suggest to install the following packages:
 
+For MySQL:
+sudo apt-get install acpid apache2 ghostscript gsfonts imagemagick libapache2-mod-auth-mysql libapache2-mod-auth-plain libapache2-mod-php5 libauthen-pam-perl libio-pty-perl libmd5-perl libnet-ssleay-perl libpam-runtime lm-sensors mysql-client mysql-server openssl perl php5 php5-cli php5-intl php5-gd php5-imagick php5-curl php5-mcrypt php5-memcache php5-mysql php5-xcache ssh tetex-base tetex-bin tetex-extra texlive-base-bin zbar-tools
 
-Daftar Ujian
+For PostgreSQL:
+sudo apt-get install acpid apache2 ghostscript gsfonts imagemagick libapache2-mod-auth-pgsql libapache2-mod-auth-plain libapache2-mod-php5 libauthen-pam-perl libio-pty-perl libmd5-perl libnet-ssleay-perl libpam-runtime lm-sensors openssl perl php5 php5-cli php5-intl php5-gd php5-imagick php5-curl php5-mcrypt php5-memcache php5-pgsql php5-xcache postgresql postgresql-client postgresql-contrib ssh tetex-base tetex-bin tetex-extra texlive-base-bin zbar-tools
 
+On remote, hosted or dedicated servers the configuration and availability of these applications will depend on the host provider or the operating system that is installed upon the server. If you encounter a problem with your host provider and the use of TCExam check the support and services page.
 
-## Mendukung beberapa tipe soal seperti
-- Pilihan ganda jawaban tunggal
-- Pilihan ganda jawaban jamak
-- Menjodohkan / mengurutkan jawaban
-- Isian singkat koreksi Otomatis
-- Uraian panjang dengan kemampuan tambahan upload jawaban dari gambar / foto
+Configuring DBMS
+In order for TCExam to work properly, you will need to have a functioning MySQL or PostgreSQL Database prior to beginning the install process.
+TCExam will create a database and the associated tables, provided the details are correctly entered, during the installation process. On occasion however, it may be necessary to create the database ahead of time. Just make a note of the appropriate settings before proceeding with the installation:
 
-## Fitur improvement dari TCExam
-- Input Soal lebih mudah, melalui Template MS Excel
-- Disediakan layanan online utk input soal melalui Template MS Word.
-- Fitur Mode Darurat (Lembar Halaman Offline), yang memungkinkan proses ujian tanpa kuota utama dan tanpa server.
-- Editing soal menggunakan antar muka HTML Editor, support konversi otomatis equation dari MS Word
-- Generate Test Data agar loading soal lebih cepat dengan user lebih banyak dalam satu waktu
-- Mengijinkan editing soal/jawaban/setting ujian meskipun Test sedang berjalan
-- Laporan rekap kehadiran Test
-- Peserta ujian dapat meng-upload jawaban dalam bentuk gambar pada jenis soal Uraian
-- Export hasil Test ke format EXCEL
-- Halaman General Setting untuk mengatur beberapa bagian CBT dengan lebih mudah
-- Opsi penjodohan bisa berupa angka maupun Teks, labelnya bisa berupa angka, teks, gambar atau media lain seperti video
-- Jumlah pengulangan ujian dapat diset sesuai keinginan, tidak lagi unlimited, namun opsi unlimited masih tersedia.
-- Theme yang lebih modern dan fresh :)
-- Export dan Import user melalui format file Excel
-- Terdapat fitur pengumuman Surat Keterangan Lulus Online, namun dengan teknik yang masih sederhana.
-- Lebih gesit dan ringan, sudah dipakai pada shared hosting mampu 300an user serentak.
+The name of your MySQL/PostgreSQL database. This may be pre-set on some hosted server set-ups.
+The name of the MySQL/PostgreSQL host. This is usually called "localhost" if you are installing on a PC or a local server. However, if you are using shared hosting, check with your hosting provider to be sure this is the case.
+A MySQL/PostgreSQL username. This may have been allocated by your server provider. A local MySQL installation generally has the default administrator username set as "root".
+A MySQL/PostgreSQL password. This may have been allocated by your server provider. Local MySQL installation generally has the default administrator password set to a blank field. TCExam always requires a non-blank password. To change the password use the following syntax:
+[MySQL]
+mysql - u root
+UPDATE mysql.user SET Password=PASSWORD('mypassword') WHERE User='root';
+FLUSH PRIVILEGES;
+quit;
+[PostgreSQL]
+sudo su postgres -c psql template 1
+ALTER USER postgres WITH PASSWORD 'mypassword';
+q
+Configuring PHP
+For the correct use of TCExam, PHP has to be configured to support the systems and libraries indicated above.
+Some parameters of PHP must also be set as the following:
 
-## Panduan
-Panduan instalasi dan tutorial lainnya silakan bisa dipelajari di https://bit.ly/3f0Oq5D
+php.ini
+date.timezone = Europe/Rome ; http://php.net/manual/en/timezones.php
+arg_separator.output = “&”
+magic_quotes_gpc = On
+magic_quotes_runtime = Off
+magic_quotes_sybase = Off
+request_order = “GPC”
+Apache module (/etc/httpd/conf/httpd.conf):
+AddDefaultCharset UTF-8
+php_value arg_separator.output "&"
+php_value magic_quotes_gpc On
+php_value magic_quotes_runtime Off
+php_value magic_quotes_sybase Off
+php_value request_order "GPC"
+Installation
+When installing TCExam for the first time, verify the system requirements. Assuming you have a working Apache/IIS web server, with PHP and a MySQL/PostgreSQL DBMS, you are on your way to installing TCExam.
+If you are getting the TCExam source code for the first time, please rename the "config.default" folders inside admin, public and shared to "config".
 
-## Kebutuhan Sistem
-1. Web server (Apache/nginx/OLS, dan lainnya)
-2. PHP 5.6 s.d 8.0.x
-3. Database MySQL/MariaDB/Postgre/Oracle
+TCExam Upgrade
+The TCExam upgrade process may vary at each release. Detailed instructions are contained on the UPGRADE.TXT file attached to each TCExam release.
 
-## Contact
-Apabila berminat ingin bergabung dalam tim pengembangan, silakan japri Author melalui saluran di bawah ini
-1. Blog: [mamans86.blogspot.com](https://mamans86.blogspot.com)
-2. Telegram: [@mamans86](https://t.me/mamans86)
-3. Email: mamansulaeman86@gmail.com
+Getting the files
+TCExam can be downloaded from GitHub. The file is a compressed archive so you will need an utility program, either locally or on your host server, that can "unzip" the file (i.e. WinZip, WinRAR, 7Zip). Ensure that you choose latest stable release version.
 
-## Community / Telegram Group
-1. [TCExam Mobile Friendly (Indonesian Language)]
+Installing Files
+We are assuming you have established a working web server, with the necessary requirements, and that you know where to put files to display on the web server.
+Unzip the distribution file into a directory under your web server root. If you are using the Apache web server, this is typically c:apache groupapachehtdocs on the Windows OS and /usr/local/apache/htdocs or /var/www/ on a UNIX-like system but it my vary particularly on hosted servers and between different distributions of GNU-Linux OS.
 
-# TCExam - README
+What you do to install TCExam on a remote host is largely dependant upon the facilities your host provides - with regard to Control Panel software and connection resources. It may also depend upon your own skills concerning server access methods. A simple and typical procedure may involve: unzip the TCExam distribution file to a local directory on your local computer and then FTP the files to the host server placing them either directly under, or in, a directory under the web server root. There are many free FTP programs available for this operation, such as Filezilla. A Google search or visit to any of the open source resource sites will assist you in finding a suitable tool.
 
-------------------------------------------------------
+When you have finished uploading the files and folders, change the files owner to the Web server user (typically “www-data” or “apache”). On POSIX based systems (like Unix, Linux, etc), change to the TCExam directory and enter the following system command (substitute the user name appropriate for your system): chown -R apache:apache /var/www/tcexam.
+Change the files access permission so that all user can write into the them. On POSIX based systems change to the TCExam directory and enter the following system command: chmod -R 777 /var/www/tcexam. For security reasons, you must properly set the permissions of these files at the end of the installation process.
 
-FOR ANY USAGE THAT REQUIRES COMMERCIAL LICENSING TERMS,
-PLEASE CONTACT INFO@TECNICK.COM TO PURCHASE A LICENSE.
+Browser Installation
+This type of installation will automatically install the database and will configure the essential system parameters. The installation process will delete any data of previous installations of TCExam, reason why in this case it is advisable to make backup copy of these data.
 
-------------------------------------------------------
+Point your Web browser (i.e. Mozilla Firefox or Internet Explorer) to the TCExam installation script (http://www.yoursite.com/install/install.php or http://yoursite.com/tcexam_folder/install/install.php). To start the installation you must fill up the form completely and press the button INSTALL.
 
-* Name: TCExam
-* Author: Nicola Asuni
-* URLs:
-	* http://www.tcexam.org
-	* https://github.com/tecnickcom/tcexam
-* Requirements and Install Documentation:
-	* [ENG] install/index.htm
-	* Check also the documentation on http://www.tcexam.org
-* Source Documentation:
-	http://www.tcexam.org
-* Support - Help:
-	Please use support Issues at https://github.com/tecnickcom/tcexam
-* Software License:
-	* Copyright (C) 2004-2020 Nicola Asuni - Tecnick.com LTD
-	* See LICENSE.TXT file for more information.
+The required fields are:
 
+db type: type of DBMS (the default is MySQL).
+db host: name of the database host (usually localhost).
+db port: database port (usually 3306 for MySQL or 5432 for PostgreSQL).
+db user: name of the database user (usually it is root for MySQL and postgres for PostgreSQL).
+db password: user's password to access the database.
+db name: name of the database (usually TCExam). This name has to be changed just when there are other copies of TCExam in the same system.
+tables prefix: prefix that will be added to the table names (usually tce_).
+host URL: the domain name of your site (i.e. http://www.yoursite.com or https://www.yoursite.com).
+relative URL: relative path from the root of your webserver where the TCExam files are located (usually / or /tcexam_folder/).
+TCExam path: complete path of the folder where TCExam is installed (i.e. /usr/local/apache/htdocs/TCExam/ or c:/Inetpub/wwwroot/TCExam/).
+TCExam port: default connection port (usually 80 for HTTP or 443 for SSL - HTTPS).
+If the installation completed succesfully the system is ready for the first execution. At this point you can jump to the Post Installation and Configuration section.
+In case the installation did not complete succesfully you can use the manual procedure described in the next section.
 
-## Third-party Software
+Manual Installation
+In order to manually install TCExam you must edit some configuration files and install the database.
 
-TCExam includes some third-party software components that are not strictly required but have been included as you convenience, and if used are subject to their respective licenses.
+The essential files and configuration parameters are:
 
-* **PHPMailer**
-    * Full Featured Email Transfer Class for PHP.
-    * Author: Brent R. Matzelle (bmatzelle@yahoo.com)
-    * Homepage: https://github.com/PHPMailer/PHPMailer
-    * License: LGPL (GNU LESSER GENERAL PUBLIC LICENSE)
-    * Location: /shared/phpmailer/
+shared/config/cp_db_config.php
+K_DATABASE_TYPE (database type, usually MYSQL or POSTGRESQL)
+K_DATABASE_HOST (name of the database host, usually localhost)
+K_DATABASE_NAME (database name, usually TCExam)
+K_DATABASE_USER_NAME (name of the database user, it usually is root)
+K_DATABASE_USER_PASSWORD (password to access the database)
+K_TABLE_PREFIX (prefix that will be added to the table names, usually tce_)
+shared/config/cp_paths.php
+K_PATH_HOST (the domain name of your site, i.e. http://www.yoursite.com)
+K_PATH_TCEXAM (relative path from the root of your webserver where the TCExam files are located, usually / or /tcexam_folder/)
+K_PATH_MAIN (complete path to the folder where TCExam is installed, i.e. /usr/local/apache/htdocs/TCExam/ or c:/Inetpub/wwwroot/TCExam/)
+K_STANDARD_PORT (http communication port, usually 80 or 443 for SSL)
+Database Installation
+In the install folder there are all the SQL files with the structure and data of the database:
 
-* **The DHTML Calendar**
-    * Calendar widget written in Javascript.
-    * Author: Mihai Bazon (mihai_bazon@yahoo.com)
-    * Homepage: http://dynarch.com/mishoo/
-    * License: LGPL (GNU LESSER GENERAL PUBLIC LICENSE)
-    * Location: /shared/jscripts/jscalendar/
+mysql_db_structure.sql - Contains the MySQL database structure.
+pgsql_db_structure.sql - Contains the PostgreSQL database structure.
+db_data.sql - Contains the default database data.
+If you want to change the prefix of the tables you must use a text editor with the search and replace function and perform the following substitutions:
 
-* **Javascript VirtualKeyboard**
-    * Author: Ilya Lebedev (ilya@lebedev.net)
-    * Homepage: http://debugger.ru/projects/virtualkeyboard
-    * License: LGPL (GNU LESSER GENERAL PUBLIC LICENSE)
-    * Location: /shared/jscripts/vk/
+In the ..._db_structure.sql file substitute CREATE TABLE tce_ with CREATE TABLE yourprefix
+In the db_data.sql file substitute INSERT INTO tce_ with INSERT INTO yourprefix
+To execute the SQL files you can use the DBMS commands from the command shell of the server. For MySQL you can use the following syntax:
 
-* **Radius Class**
-    * Radius client implementation in pure PHP.
-    * Author: SysCo/al (developer@sysco.ch)
-    * Homepage: http://developer.sysco.ch/php/
-    * License: LGPL (GNU LESSER GENERAL PUBLIC LICENSE)
-    * Location: /shared/radius/
+mysql -u root -p
+mysql> CREATE DATABASE TCExam;
+mysql> quit
+shell> mysql -u root -p TCExam < mysql_db_structure.sql
+shell> mysql -u root -p TCExam < db_data.sql
+As another option you can use an external DBMS manager (i.e. phpMyAdmin, phpPgAdmin, pgAdmin3, etc.) to create the database and run the SQL files by using the specific commands.
 
-* **phpCAS**
-    * Central Authentication Service (CAS) client in PHP.
-    * Copyright 2007-2011, JA-SIG, Inc. http://www.jasig.org/
-    * Homepage: https://wiki.jasig.org/display/CASC/phpCAS
-    * License: Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
-    * Location: /shared/cas/
+Post Installation and Configuration
+Once the installation is completed you must:
 
-* **Fonts**
+delete the install folder since it is not necessary anymore and represent a security issue for the system (rm -fR /var/www/tcexam/install);
+there are additional commands required to ensure that files can not be altered unless intended by the administrator; on POSIX system you can use the following commands:
+cd /var/www/tcexam
+find . -exec chown -R apache:apache {} \;
+find . -type f -exec chmod 544 {} \;
+find cache/ -type f -exec chmod 644 {} ;
+find cache/lang -type f -exec chmod 544 {} \;
+find admin/backup -type f -exec chmod 644 {} \;
+find admin/log/ -type f -exec chmod 644 {} \;
+find public/log/ -type f -exec chmod 644 {} \;
+find . -type d -exec chmod 755 {} ;
+(n this example /var/www/tcexam is the installation folder, apache is the name of Apache user and group)
 
-    TCExam includes fonts for the TCPDF library, they are not strictly required but have been included as you convenience.
+configure TCExam to fit your needs and activate additional features.
+Configuration
+Once the above installation procedure is successfully completed, TCExam will work in "basic" mode. Some additional configuration steps are required in order to activate some features (RADIUS, email, LaTeX) and to personalize some settings to fit your needs. All you have to do is to manually edit the following configuration files:
 
-    All the PHP files on the fonts directory are subject to the general TCPDF license (GNU-LGPLv3),
-    they do not contain any binary data but just a description of the general properties of a particular font.
-    These files can be also generated on the fly using the font utilities and TCPDF methods.
+shared/config/ - Main configuration files:
+lang/ - language files
+language_tmx.xml - TMX language file (contains all translations)
+tce_cas.php - Configuration file for CAS (Central Authentication Service)
+tce_config.php - system general configuration
+tce_db_config.php - database configuration
+tce_email_config.php - general configuration of the email system
+tce_general_constants.php - general constants
+tce_latex.php - LaTeX configuration
+tce_ldap.php - LDAP configuration
+tce_mime.php - MIME associations to file extensions
+tce_paths.php - file and folder paths within the system
+tce_pdf.php - configuration of the format and the headers of the PDF documents
+tce_radius.php - RADIUS configuration
+tce_user_registration.php - user registration configuration
+admin/config/ - Configuration files for the administration area:
+tce_auth.php - access levels configuration for the administration modules
+tce_config.php - general configuration for the administration panel
+public/config/ - Configuration files for the public area:
+tce_auth.php - access levels configuration for the public modules
+tce_config.php - general configuration for the public area
+Configuration files are self-explanatory. If you encounter a problem please check the Support and Services page.
 
-    All the original binary TTF font files have been renamed for compatibility with TCPDF and compressed using the gzcompress PHP function that uses the ZLIB data format (.z files).
+Access and Security
+Once the installation and configuration procedures are completed, you can access the administration section by pointing your Web browser to http://www.yoursite.com/tcexam_folder/admin/code/ and using the following username and password:
 
-    The binary files (.z) that begins with the prefix "free" have been extracted from the GNU FreeFont collection (GNU-GPLv3).
-    The binary files (.z) that begins with the prefix "pdfa" have been derived from the GNU FreeFont, so they are subject to the same license.
-    For the details of Copyright, License and other information, please check the files inside the directory fonts/freefont-20100919
-    Link : http://www.gnu.org/software/freefont/
+name: admin
+password: 1234
+In order to protect your system and be granted with an unique personal access, remember to change the password with the Users form.
 
-    The binary files (.z) that begins with the prefix "dejavu" have been extracted from the DejaVu fonts 2.33 (Bitstream) collection.
-    For the details of Copyright, License and other information, please check the files inside the directory fonts/dejavu-fonts-ttf-2.33
-    Link : http://dejavu-fonts.org
-
-    The binary files (.z) that begins with the prefix "ae" have been extracted from the Arabeyes.org collection (GNU-GPLv2).
-    Link : http://projects.arabeyes.org/
-
-
-## Description
-
-TCExam is a software solution (CBA - Computer-Based Assessment) to
-drastically simplify the evaluation process for schools, universities,
-recruiting firms as well as private and public companies, allowing
-professors, teachers and examiners to create, distribute and manage exams,
-tests, surveys and quizzes.
-
-Compared to the traditional Pen-and-Paper Testing (PPT), TCExam simplifies
-the whole process of evaluation reducing costs and improving quality and
-reliability of the examinations.
-
-TCExam comes in a variety of languages and is already used all over the
-world by top universities, schools, private and public institutions,
-independent educators and research centers.
-
-### KEY FEATURES
-
-* **Flexibility and Configurability**: The system has been designed to offer a
-high degree of adaptability to cover a great variety of usage scenarios.
-Numerous configuration features allow customizing TCExam to fit all possible
-requirements.
-
-* **Free Open Source Software (FOSS)**: TCExam software is distributed with
-GNU-AGPLv3 license. Open Source promotes Software reliability and quality by
-supporting independent peer review and rapid evolution of the source code.
-
-* **Web-based Architecture**: TCExam is Web-based and developed with LAMP
-(Linux, Apache, MySQL, PHP) technology. User-friendly interface allows you
-to install and use TCExam by simply connecting one cable to the switch of
-your computer network. All the computers on the network will be able to use
-TCExam independently from the client’s operating system as a normal intranet
-website, with no need to install any additional software or plug-in.
-
-* **Internationalization (I18N)**: TCExam is language-independent through the
-adoption of the UTF-8, Unicode and  TMX standards. It supports the
-Right-To-Left mode and currently includes translations in 25 different
-languages.
-
-* **Accessibility and Usability**: TCExam Web interface conforms to the XHTML
-1.0 Strict standard, the guidelines on Accessibility (W3C-WAI-WCAG 1.0) and
-Usability, to provide equal access and equal opportunity to people with
-disabilities, including blindness.
-
-* **Results and Statistics**: TCExam outputs a variety of result pages, enabling
-various selection filters and providing numerous statistical indexes.
-Results and statistics can then be exported into various formats for filing
-or reworking. The test-takers can immediately be informed of the result of
-their test, or have it delivered via email.
-
-* **Data Import and Export**: TCExam uses Open Standard protocols for data
-filing and interchange: TSV, XML and PDF. Everything is fully documented to
-be easily extended or used by external applications. Custom filters can be
-added to import data from other systems. Include Optical Mark Recognition
-(OMR) system to import users' answers from paper sheets. TCExam supports
-several types of remote authentication and single-sign-on protocols: LDAP,
-RADIUS, CAS.
-
-* **Multimedia Content**: TCExam uses a common mark-up language to add text
-formatting, images, multimedia objects (audio and video) and mathematical
-formulas (supports LaTeX and MathML).
-
-* **Unique Tests**: TCExam can simultaneously generate unique tests for
-different users by randomly selecting and sorting questions and alternative
-answers. This feature drastically reduces or eliminates the chances of
-cheating on the test.
-
-* **Paper Testing with Optical Character Recognition (OMR)**: TCExam can
-generate printable PDF documents for pen-and-paper testing. The OMR answer
-sheet can be scanned and uploaded to TCExam for automatic test importing,
-scoring and reporting.
-
-* **Security**: TCExam is more secure than traditional Pen-and-Paper testing.
-It supports SSL (Secure Socket Layer) encryption and includes various
-authentication levels to discriminate the access to the various sections
-(user/password, access level, group, IP address). Test time, test activity,
-results, and statistics: every part of the test is managed and stored in the
-server, leaving no sensitive data in the users’ client computers.
+To achieve a better level of security you have to protect the whole admin folder with a web-based user autentication system. For Apache check the Apache Authentication, Authorization, and Access Control.
+Please protect separately the admin/backupem> folder or move the backup folder to another protected location and set the K_PATH_BACKUP constant in shared/config/tce_paths.php. The content of this directory should not be available via Web browser.
