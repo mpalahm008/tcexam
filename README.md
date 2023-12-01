@@ -1055,7 +1055,7 @@ selesai, Anda harus:<o:p></o:p></span></p>
      "Courier New";mso-fareast-font-family:"Times New Roman"'><br>
      </span><span style='font-size:13.5pt;mso-bidi-font-size:11.0pt;font-family:
      "Courier New";mso-fareast-font-family:"Times New Roman"'>find cache/ -type
-     f -exec chmod 644 {} ;</span><span style='font-size:13.5pt;font-family:
+     f -exec chmod 644 {} \;</span><span style='font-size:13.5pt;font-family:
      "Courier New";mso-fareast-font-family:"Times New Roman"'><br>
      </span><span style='font-size:13.5pt;mso-bidi-font-size:11.0pt;font-family:
      "Courier New";mso-fareast-font-family:"Times New Roman"'>find cache/lang
