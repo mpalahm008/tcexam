@@ -6,14 +6,11 @@ Projek ini merupakan Forking dari TMF (TCExam Mobile Friendly) dengan modifikasi
 
 Halaman Login
 
-<img src="https://1.bp.blogspot.com/-3a273pl2fYY/YGwaHMtlOEI/AAAAAAAATfc/ziojUbNS4XI8YvIjFkuPQLZoU8uRJbNrACLcBGAsYHQ/s1862/Screenshot_2021-04-06-15-18-21-007_com.android.chrome.png" width="200px"/>
-
 Logo sekolah dan nama sekolah serta atribut lainnya dapat diubah sesuai selera.
 
 
 Daftar Ujian
 
-<img src="https://1.bp.blogspot.com/-xS6uPb0zYQI/YGwbjk6RaKI/AAAAAAAATfo/oNzqY_NPMjUlr3uAvdc0xQPbiv9dTRxcACLcBGAsYHQ/s1857/Screenshot_2021-04-06-15-26-38-765_com.android.chrome.png" width="200px"/>
 
 ## Mendukung beberapa tipe soal seperti
 - Pilihan ganda jawaban tunggal
@@ -55,7 +52,7 @@ Apabila berminat ingin bergabung dalam tim pengembangan, silakan japri Author me
 3. Email: mamansulaeman86@gmail.com
 
 ## Community / Telegram Group
-1. [TCExam Mobile Friendly (Indonesian Language)](https://t.me/tmfcbtakm)
+1. [TCExam Mobile Friendly (Indonesian Language)]
 
 # TCExam - README
 
@@ -81,10 +78,6 @@ PLEASE CONTACT INFO@TECNICK.COM TO PURCHASE A LICENSE.
 * Software License:
 	* Copyright (C) 2004-2020 Nicola Asuni - Tecnick.com LTD
 	* See LICENSE.TXT file for more information.
-
-
-[![Donate via PayPal](https://img.shields.io/badge/donate-paypal-87ceeb.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tcexam%20project)
-*Please consider supporting this project by making a donation via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tcexam%20project)*
 
 
 ## Third-party Software
