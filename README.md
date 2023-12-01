@@ -1072,6 +1072,10 @@ selesai, Anda harus:<o:p></o:p></span></p>
      </span><span style='font-size:13.5pt;mso-bidi-font-size:11.0pt;font-family:
      "Courier New";mso-fareast-font-family:"Times New Roman"'>find public/log/
      -type f -exec chmod 644 {} \;</span><span style='font-size:13.5pt;
+     font-family:"Arial","sans-serif";mso-fareast-font-family:"Times New Roman"'><br>
+      </span><span style='font-size:13.5pt;mso-bidi-font-size:11.0pt;font-family:
+     "Courier New";mso-fareast-font-family:"Times New Roman"'>find . -type d -exec 
+     chmod 755 {} \;</span><span style='font-size:13.5pt;
      font-family:"Arial","sans-serif";mso-fareast-font-family:"Times New Roman"'><o:p></o:p></span></li>
 </ul>
 
