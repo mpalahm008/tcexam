@@ -1,0 +1,11 @@
+TMF2023 Update Versi 23.02.27 
+Changelog / Perubahan dari versi sebelumnya (23.02.05) 
+1. Pengubahan tampilan soal jawaban jamak jika menggunakan radio button 
+2. Penambahan keterangan setelah selesai import soal XML 
+3. Perbaikan notice pada beberapa bagian aplikasi 
+4. Penambahan fitur update melalui upload file zip 
+5. Penambahan tombol cepat ke halaman admin untuk user dengan level di atas 4 
+6. Perbaikan setting tanggal pada saat pembuatan jadwal ujian
+
+Petunjuk Update silakan bisa kunjungi web berikut :
+https://yayasan-gondang.com/tmf2023/ , Anda bisa melihat petunjuk update pada halaman Update versi 23.02.27 dengan menekan tombol [ Download File Update TMF2023 - 23.02.27 ]
